@@ -1,9 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import App from './App';
+import { router } from './router';
 import { darkTheme } from './theme';
+import { RouterProvider } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -76,7 +76,7 @@ root.render(
   <RecoilRoot>
     <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
-      <App />
+      <RouterProvider router={router} />
     </ThemeProvider>
   </RecoilRoot>
   // </React.StrictMode>
