@@ -7,6 +7,7 @@ import Board from './components/Board';
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
+import Trash from './components/Trash';
 
 interface IconClicked{
   iconClicked:Boolean;
@@ -172,7 +173,7 @@ function App() {
         }
       })
     }
-    if(destination.droppableId!==source.droppableId){
+    if(destination.droppableId!==source.droppableId && destination.droppableId!=="trash"){
       const copySourceTodos=[...toDos[source.droppableId]];
       const copyDestTodos=[...toDos[destination.droppableId]];
       const targetTodo=copySourceTodos[source.index];
@@ -183,6 +184,16 @@ function App() {
           ...allBoards,
           [source.droppableId]:[...copySourceTodos],
           [destination.droppableId]:[...copyDestTodos]
+        }
+      })
+    }
+    if(destination.droppableId==="trash"){
+      const copyTodos=[...toDos[source.droppableId]];
+      copyTodos.splice(source.index,1);
+      setTodos(allBoards=>{
+        return {
+          ...allBoards,
+          [source.droppableId]:[...copyTodos]
         }
       })
     }
@@ -213,6 +224,7 @@ function App() {
         {Object.keys(toDos).map(boardId=><Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />)}
       </Boards>
     </Wrapper>
+    <Trash />
     </TotalWrapper>
   </DragDropContext>
 }
