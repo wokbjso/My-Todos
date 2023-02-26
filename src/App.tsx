@@ -13,10 +13,9 @@ interface IconClicked{
 }
 
 const TotalWrapper=styled.div<IconClicked>`
-  width: 100%;
-  height:100%;
-  background-color: ${props=>props.iconClicked ? "#68FFF2" : props.theme.bgColor};
-`
+  background-color: ${props=>props.theme.bgColor};
+  position:relative;
+  `
 
 const Wrapper=styled.div`
     display:flex;
@@ -53,32 +52,41 @@ const Icon=styled.div`
 `
 
 const AddBoardWrapper=styled.div`
+  z-index: 10;
   position:fixed;
-  width:20%;
-  height: 20%;
-  background-color: rgba(0,0,0,0.3);
+  margin:0 auto;
+  width: 100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+`;
+
+const AddBoard=styled.div`
+  background-color: ${props=>props.theme.boardColor};
+  width: 20%;
+  height: 20%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
   div:first-child{
-    width: 100%;
-    display: flex;
-    justify-content:center;
-    position: relative;
     span{
+      font-size:23px;
       position: absolute;
-      font-size:25px;
-      top:0;
-      right:10px;
+      top:10px;
+      right:15px;
       &:hover{
         cursor: pointer;
         scale:1.1;
-        transition:scale 0.2s ease-in;
+        transition:scale 0.1s ease-in;
       }
     }
   }
-`;
+`
 
 const Form=styled.form`
   position: relative;
@@ -181,11 +189,8 @@ function App() {
   }
   return <DragDropContext onDragEnd={onDragEnd}>
     <TotalWrapper iconClicked={click}>
-    <Icon onClick={iconClicked}>
-      <FontAwesomeIcon icon={faPlus} />
-    </Icon>
-    <Wrapper>
     {click ? <AddBoardWrapper>
+      <AddBoard>
       <div>
         <Title>Board Name:</Title>
         <span onClick={iconClicked}><FontAwesomeIcon icon={faXmark} /></span>
@@ -198,7 +203,12 @@ function App() {
       <div>
         <Button>Create</Button>
       </div>
-      </AddBoardWrapper> : null}
+      </AddBoard>
+        </AddBoardWrapper> : null}
+    <Icon onClick={iconClicked}>
+      <FontAwesomeIcon icon={faPlus} />
+    </Icon>
+    <Wrapper>
       <Boards>
         {Object.keys(toDos).map(boardId=><Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />)}
       </Boards>

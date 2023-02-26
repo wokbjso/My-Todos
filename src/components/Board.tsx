@@ -1,6 +1,10 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NONAME } from "dns";
+import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ITodo, toDoState } from "../atoms";
 import DraggableCard from "./DraggableCard";
@@ -21,6 +25,7 @@ const BoardWrapper=styled.div`
     min-height: 300px;
     display:flex;
     flex-direction: column;
+    position: relative;
 `;
 
 const Form=styled.form`
@@ -43,12 +48,24 @@ const Title=styled.h1`
     display: flex;
     justify-content: center;
     font-size:20px;
-    font-weight: 500;
-    margin-bottom:10px;
+    font-weight: 600;
+    margin-bottom:13px;
+`
+
+const DeleteBoard=styled.div`
+    font-size:23px;
+    position: absolute;
+    top:10px;
+    right:10px;
+    &:hover{
+        cursor: pointer;
+        scale:1.1;
+        transition:scale 0.1s ease-in;
+    }
 `
 
 function Board({boardId,toDos}:IBoardWrapper){
-    const setTodos=useSetRecoilState(toDoState);
+    const [allTodos,setAllTodos]=useRecoilState(toDoState);
     const {
         register,
         handleSubmit,
@@ -59,7 +76,7 @@ function Board({boardId,toDos}:IBoardWrapper){
             id:Date.now(),
             text:toDo
         };
-        setTodos(allBoards=>{
+        setAllTodos(allBoards=>{
             return {
                 ...allBoards,
                 [boardId]:[
@@ -70,8 +87,25 @@ function Board({boardId,toDos}:IBoardWrapper){
         })
         setValue("toDo","");
     }
-    return <BoardWrapper>
+    const onDelete=(event:React.MouseEvent<HTMLDivElement>)=>{
+        const deleteBoardId=event.currentTarget.parentElement?.id as string;
+        const keys=Object.keys(allTodos).filter(key=>key!==deleteBoardId);
+        setAllTodos(allBoards=>{
+            let newBoards={};
+            keys.forEach(key=>{
+                newBoards={
+                    ...newBoards,
+                    [key]:allBoards[key]
+                }
+            })
+            return newBoards;
+        })
+    }
+    return <BoardWrapper id={boardId}>
         <Title>{boardId}</Title>
+        <DeleteBoard onClick={onDelete}>
+            <FontAwesomeIcon icon={faXmark} />
+        </DeleteBoard>
         <Form onSubmit={handleSubmit(onValid)}>
             <input 
             {...register("toDo",{required:true})} 
