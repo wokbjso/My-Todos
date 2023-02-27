@@ -14,8 +14,8 @@ interface IconClicked{
 }
 
 const TotalWrapper=styled.div<IconClicked>`
-  background-color: ${props=>props.theme.bgColor};
-  position:relative;
+    position:relative;
+    min-width: 1000px;
   `
 
 const Wrapper=styled.div`
@@ -33,6 +33,12 @@ const Boards=styled.div`
   grid-template-columns: repeat(3,1fr);
   gap:10px;
   width:100%;
+  @media screen and (max-width:650px){
+    grid-template-columns: repeat(2,1fr);
+  }
+  @media screen and (max-width:300px){
+    grid-template-columns: repeat(1,1fr);
+  }
 `;
 
 const Icon=styled.div`
@@ -49,6 +55,10 @@ const Icon=styled.div`
   &:hover{
     cursor: pointer;
     background-color:rgba(0,0,0,0.3);
+  }
+  @media screen and (max-width:300px){
+    top:10px;
+    right:40px;
   }
 `
 
@@ -97,7 +107,7 @@ const Form=styled.form`
   align-items: center;
   justify-content: center;
   input{
-    width:250px;
+    width:190px;
     height:40px;
     border-radius: 5px;
     border:none;
