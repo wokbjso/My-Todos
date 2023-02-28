@@ -13,19 +13,14 @@ interface IconClicked{
   iconClicked:Boolean;
 }
 
-const TotalWrapper=styled.div<IconClicked>`
-    position:relative;
-  `
-
 const Wrapper=styled.div`
     display:flex;
     max-width: 800px;
-    max-height: 800px;
     min-width: 500px;
     margin:0 auto;
     justify-content: center;
     align-items: center;
-    height:100vh;
+    height: 100%;
     @media screen and (max-width:900px){
       padding:0px 80px;
   }
@@ -36,12 +31,13 @@ const Boards=styled.div`
   grid-template-columns: repeat(3,1fr);
   gap:10px;
   width:100%;
-  height:100%;
+  margin: 100px 0px;
   @media screen and (max-width:580px){
     grid-template-columns: repeat(2,1fr);
   }
   @media screen and (max-width:400px){
     grid-template-columns: repeat(1,1fr);
+    margin: 50px 0px;
   }
 `;
 
@@ -109,6 +105,7 @@ const AddBoard=styled.div`
   }
   @media screen and (max-width:1000px){
     width:400px;
+    height:200px;
   }
 `
 
@@ -124,6 +121,7 @@ const Form=styled.form`
     height:40px;
     border-radius: 5px;
     border:none;
+    margin-right: 15px;
   }
 `
 
@@ -148,7 +146,6 @@ const Button=styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
   &:hover{
     cursor: pointer;
     scale:1.1;
@@ -222,7 +219,6 @@ function App() {
     }
   }
   return <DragDropContext onDragEnd={onDragEnd}>
-    <TotalWrapper iconClicked={click}>
     {click ? <AddBoardWrapper>
       <AddBoard>
       <div>
@@ -232,10 +228,8 @@ function App() {
       <div>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <input {...register("boardName",{required:true})} placeholder="보드 이름" />
+          <Button>Create</Button>
         </Form>
-      </div>
-      <div>
-        <Button>Create</Button>
       </div>
       </AddBoard>
         </AddBoardWrapper> : null}
@@ -248,7 +242,6 @@ function App() {
       </Boards>
     </Wrapper>
     <Trash />
-    </TotalWrapper>
   </DragDropContext>
 }
 
