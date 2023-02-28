@@ -37,9 +37,6 @@ const Form=styled.form`
         border-radius: 6px;
         height:25px;
     }
-    @media screen and (max-width:1000px){
-        width:80%;
-  }
 `;
 
 const Area=styled.div<{isDraggingOver:Boolean,isDraggingFromThis:Boolean}>`
