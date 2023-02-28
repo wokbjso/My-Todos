@@ -23,9 +23,12 @@ const Icon=styled.div`
             right:0px;
     }
     @media screen and (max-width:1100px){
-        font-size:35px;
-        bottom:0px;
-        right:-70px;
+        width:150px;
+        height:150px;
+    }
+    @media screen and (max-width:1000px){
+        width:90px;
+        height:90px;
     }
 `
 
@@ -34,10 +37,14 @@ const TrashIcon=styled.div<{isDraggingOver:Boolean}>`
     transition:color 0.15s ease-in-out;
     width:30%;
     height:30%;
+    @media screen and (max-width:1000px){
+        width:50%;
+        height:50%;
+    }
 `
 
 function Trash(){
-    return <Icon>
+    return <Icon >
         <Droppable droppableId="trash">
         {(provided, snapshot) => (
             <TrashIcon
