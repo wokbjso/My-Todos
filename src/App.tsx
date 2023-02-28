@@ -15,17 +15,20 @@ interface IconClicked{
 
 const TotalWrapper=styled.div<IconClicked>`
     position:relative;
-    min-width: 1000px;
   `
 
 const Wrapper=styled.div`
     display:flex;
     max-width: 800px;
-    min-width: 800px;
+    max-height: 800px;
+    min-width: 500px;
     margin:0 auto;
     justify-content: center;
     align-items: center;
     height:100vh;
+    @media screen and (max-width:900px){
+      padding:0px 80px;
+  }
 `;
 
 const Boards=styled.div`
@@ -33,10 +36,11 @@ const Boards=styled.div`
   grid-template-columns: repeat(3,1fr);
   gap:10px;
   width:100%;
-  @media screen and (max-width:650px){
+  height:100%;
+  @media screen and (max-width:580px){
     grid-template-columns: repeat(2,1fr);
   }
-  @media screen and (max-width:300px){
+  @media screen and (max-width:400px){
     grid-template-columns: repeat(1,1fr);
   }
 `;
@@ -56,9 +60,15 @@ const Icon=styled.div`
     cursor: pointer;
     background-color:rgba(0,0,0,0.3);
   }
-  @media screen and (max-width:300px){
-    top:10px;
+  @media screen and (max-width:1080px){
+    top:30px;
     right:40px;
+    font-size:35px;
+  }
+  @media screen and (max-width:1000px){
+    top:20px;
+    right:10px;
+    font-size:35px;
   }
 `
 

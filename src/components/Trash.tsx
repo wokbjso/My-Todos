@@ -18,6 +18,15 @@ const Icon=styled.div`
     cursor: pointer;
     background-color:rgba(0,0,0,0.3);
   }
+    @media screen and (max-width:1400px){
+            bottom:0px;
+            right:0px;
+    }
+    @media screen and (max-width:1100px){
+        font-size:35px;
+        bottom:0px;
+        right:-70px;
+    }
 `
 
 const TrashIcon=styled.div<{isDraggingOver:Boolean}>`
