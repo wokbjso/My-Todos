@@ -87,7 +87,7 @@ const AddBoardWrapper=styled.div`
 
 const AddBoard=styled.div`
   background-color: ${props=>props.theme.boardColor};
-  width: 20%;
+  width: 30%;
   height: 20%;
   display: flex;
   flex-direction:column;
@@ -107,6 +107,9 @@ const AddBoard=styled.div`
       }
     }
   }
+  @media screen and (max-width:1000px){
+    width:400px;
+  }
 `
 
 const Form=styled.form`
@@ -117,7 +120,7 @@ const Form=styled.form`
   align-items: center;
   justify-content: center;
   input{
-    width:190px;
+    width:230px;
     height:40px;
     border-radius: 5px;
     border:none;
